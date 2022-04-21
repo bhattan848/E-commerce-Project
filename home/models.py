@@ -23,15 +23,15 @@ class Slider(models.Model):
 	description = models.TextField(blank = True)
 	rank = models.IntegerField()
 
+
 	def __str__(self):
 		return self.name
-
-
 
 class Ad(models.Model):
 	name = models.CharField(max_length = 500)
 	image = models.ImageField(upload_to = 'media')
 	rank = models.IntegerField()
+	status = models.CharField(choices= (('active','active'),('','default')),blank= True,max_length= 100)
 
 	def __str__(self):
 		return self.name		

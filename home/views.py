@@ -18,3 +18,10 @@ class HomeView(BaseView):
 		self.views['hot_products'] = Product.objects.filter(labels = 'hot', stock = 'In Stock')
 		self.views['new_products'] = Product.objects.filter(labels = 'new', stock = 'In Stock')
 		return render(request,'shop-index.html',self.views)
+
+
+
+class DetailView(BaseView):
+	def get(self,request,slug):
+		self.views['product_detail'] = Product.objects.filter(slug = slug)
+		return render(request,'shop-item.html',self.views)

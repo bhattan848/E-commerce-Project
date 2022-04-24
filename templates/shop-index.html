@@ -59,23 +59,24 @@ p {
         <div class="row margin-bottom-40">
           <!-- BEGIN SALE PRODUCT -->
           <div class="col-md-12 sale-product">
-            <h2>New Arrivals</h2>
-            <div class="owl-carousel owl-carousel5">
-              {% for product in new_products %}
+           <h2>New Arrivals</h2>
+            <div class="owl-carousel owl-carousel1">
+
+              {% for new in news %}
               <div>
                 <div class="product-item">
                   <div class="pi-img-wrapper">
-                    <img src="{{product.image.url}}" class="img-responsive" alt="Berry Lace Dress">
+                    <img src="{{new.image.url}}" class="img-responsive" alt="Berry Lace Dress">
                     <div>
-                      <a href="{{product.image.url}}" class="btn btn-default fancybox-button">Zoom</a>
+                      <a href="{{new.image.url}}" class="btn btn-default fancybox-button">Zoom</a>
                       <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
                     </div>
                   </div>
-                  <h3><a href="shop-item.html">{{product.name}}</a></h3>
-                  {% if product.discounted_price > 0 %}
-                  <div class="pi-price">${{ product.discounted_price }}</div>
+                  <h3><a href="detail/{{new.slug}}">{{new.name}}</a></h3>
+                  {% if new.discounted_price > 0 %}
+                  <div class="pi-price">${{new.discounted_price}}</div>
                   {% else %}
-                  <div class="pi-price">${{ product.price }}</div>
+                  <div class="pi-price">${{new.price}}</div>
                   {% endif %}
                   <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
                   <div class="sticker sticker-sale"></div>
@@ -173,22 +174,26 @@ p {
           <div class="col-md-6 two-items-bottom-items">
             <h2>Two items</h2>
             <div class="owl-carousel owl-carousel2">
-              
+              {% for sale in sale_products %}
               <div>
                 <div class="product-item">
                   <div class="pi-img-wrapper">
-                    <img src="assets/pages/img/products/k4.jpg" class="img-responsive" alt="Berry Lace Dress">
+                    <img src="{{sale.image.url}}" class="img-responsive" alt="Berry Lace Dress">
                     <div>
-                      <a href="assets/pages/img/products/k4.jpg" class="btn btn-default fancybox-button">Zoom</a>
+                      <a href="{{hot.image.url}}" class="btn btn-default fancybox-button">Zoom</a>
                       <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
                     </div>
                   </div>
-                  <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
-                  <div class="pi-price">$29.00</div>
+                  <h3><a href="shop-item.html">{{sale.name}}/a></h3>
+                    {% if sale.discounted_prce > 0 %}
+                  <div class="pi-price">${{sale.discounted_prce}}</div>
+                  {% else %}
+                  <div class="pi-price">${{sale.prce}}</div>
+                  {% endif %}
                   <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
                 </div>
               </div>
-              
+              {% endfor %}
             </div>
           </div>
           <!-- END TWO PRODUCTS -->

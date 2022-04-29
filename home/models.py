@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+
 LABELS = (('new','new'), ('hot', 'hot'), ('sale', 'sale'), ('','default'))
 class Category(models.Model):
 	name = models.CharField(max_length = 300)
@@ -21,6 +22,7 @@ class Slider(models.Model):
 	name = models.CharField(max_length = 500)
 	image = models.ImageField(upload_to = 'media')
 	description = models.TextField(blank = True)
+	status = models.CharField(choices= (('active','active'),('','default')),blank= True,max_length= 100)
 	rank = models.IntegerField()
 
 
@@ -44,10 +46,11 @@ class Product(models.Model):
 	category = models.ForeignKey(Category,on_delete = models.CASCADE)
 	subcategory = models.ForeignKey(SubCategory,on_delete = models.CASCADE)
 	description = models.TextField(blank = True)
-	stock = models.CharField(max_length =50, choices = (('In Stock','In Stock'),('Out of Stock', 'Out of Stock')))
-	labels = models.CharField(max_length = 50, choices = LABELS)
+	stock = models.CharField(max_length = 50,
+		choices = (('In Stock','In Stock'),('Out of Stock','Out of Stock')))
+	labels = models.CharField(max_length = 50,choices = LABELS)
 	slug = models.CharField(max_length = 400,blank = True)
 
-def __str__(self):
-	return self.name
+	def __str__(self):
+		return self.name
 	

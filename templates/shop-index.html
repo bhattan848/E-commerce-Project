@@ -62,7 +62,7 @@ p {
            <h2>New Arrivals</h2>
             <div class="owl-carousel owl-carousel1">
 
-              {% for new in news %}
+              {% for product in new_products %}
               <div>
                 <div class="product-item">
                   <div class="pi-img-wrapper">
@@ -72,7 +72,7 @@ p {
                       <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
                     </div>
                   </div>
-                  <h3><a href="detail/{{new.slug}}">{{new.name}}</a></h3>
+                  <h3><a href="detail/{{product.slug}}">{{product.name}}</a></h3>
                   {% if new.discounted_price > 0 %}
                   <div class="pi-price">${{new.discounted_price}}</div>
                   {% else %}
@@ -97,36 +97,12 @@ p {
             <ul classcategories ="list-group margin-bottom-25 sidebar-menu">
               {% for cat in categories %}
               <li class="list-group-item clearfix dropdown">
-                <a href="shop-product-list.html">
+                <a href="category/{{cat.slug}}">
                   <i class="fa fa-angle-right"></i>
                   {{cat.name}}
                   
                 </a>
-                <ul class="dropdown-menu">
-                  <li class="list-group-item dropdown clearfix">
-                    <a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Shoes </a>
-                      <ul class="dropdown-menu">
-                        <li class="list-group-item dropdown clearfix">
-                          <a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Classic </a>
-                          <ul class="dropdown-menu">
-                            <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Classic 1</a></li>
-                            <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Classic 2</a></li>
-                          </ul>
-                        </li>
-                        <li class="list-group-item dropdown clearfix">
-                          <a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Sport  </a>
-                          <ul class="dropdown-menu">
-                            <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Sport 1</a></li>
-                            <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Sport 2</a></li>
-                          </ul>
-                        </li>
-                      </ul>
-                  </li>
-                  <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Trainers</a></li>
-                  <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Jeans</a></li>
-                  <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Chinos</a></li>
-                  <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> T-Shirts</a></li>
-                </ul>
+                
               </li>
               {% endfor %}
               
@@ -229,10 +205,10 @@ p {
     <div class="brands">
       <div class="container">
             <div class="owl-carousel owl-carousel6-brands">
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/canon.jpg" alt="canon" title="canon"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/esprit.jpg" alt="esprit" title="esprit"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/gap.jpg" alt="gap" title="gap"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/next.jpg" alt="next" title="next"></a>
+              <a href="shop-product-list.html"><img src="{% static 'assets/pages/img/brands/canon.jpg' %}" alt="canon" title="canon"></a>
+              <a href="shop-product-list.html"><img src="{% static 'assets/pages/img/brands/esprit.jpg' %}" alt="esprit" title="esprit"></a>
+              <a href="shop-product-list.html"><img src="{% static 'assets/pages/img/brands/gap.jpg' %}" alt="gap" title="gap"></a>
+              <a href="shop-product-list.html"><img src="{% static 'assets/pages/img/brands/next.jpg' %}" alt="next" title="next"></a>
               <a href="shop-product-list.html"><img src="assets/pages/img/brands/puma.jpg" alt="puma" title="puma"></a>
               <a href="shop-product-list.html"><img src="assets/pages/img/brands/zara.jpg" alt="zara" title="zara"></a>
               <a href="shop-product-list.html"><img src="assets/pages/img/brands/canon.jpg" alt="canon" title="canon"></a>

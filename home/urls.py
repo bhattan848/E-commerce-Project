@@ -11,4 +11,9 @@ urlpatterns = [
     path('subcategory/<slug>',SubCategoryView.as_view(),name = 'subcategory'),
     path('search',SearchView.as_view(),name = 'search'),
     path('signup',signup,name = 'signup'),
+    path('contact',contact,name = 'contact'),
+    path('cart/<slug>',cart,name = 'cart'),
+    path('deletecart/<slug>',deletecart,name = 'deletecart'),
+    path('decreasecart/<slug>',decreasecart,name = 'decreasecart'),
+    path('mycart',CartView.as_view(),name = 'mycart'),
 ]

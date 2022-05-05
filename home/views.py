@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import *
 # Create your views here.
 from django.views.generic import View
+
 
 
 class BaseView(View):
@@ -94,3 +95,79 @@ def signup(request):
 			messages.error(request,'The password does not match')
 			return render(request,'shop-standart-forms.html')
 	return render(request,'shop-standart-forms.html')
+
+
+def contact(request):
+	if request.method== 'POST':
+		name = request.POST['name']
+		email = request.POST['email']
+		message = request.POST['message']
+		print(name,email,message)
+		contact = Contact(
+			name = name, 
+			email = email, 
+			message = message
+			)
+		contact.save()
+				
+		return render(request,'shop-contacts.html')
+
+	else:
+		return render(request,'shop-contacts.html')
+
+def cart(request,slug):
+	if Cart.objects.filter(slug = slug, user = request.user.username,checkout = False).exists():
+		quantity = Cart.objects.get(slug = slug, user = request.user.username,checkout = False).quantity
+		quantity = quantity +1
+		Cart.objects.filter(slug = slug, user = request.user.username,checkout = False).update(quantity= quantity)
+	else:
+		username = request.user.username
+		data = Cart.objects.create(
+			user = username,
+			slug = slug,
+			items = Product.objects.filter(slug = slug)[0]
+			)
+		data.save()
+
+	return redirect('/mycart')
+
+def deletecart(request,slug):
+	if Cart.objects.filter(slug = slug, user = request.user.username,checkout = False).exists():
+		Cart.objects.get(slug = slug, user = request.user.username,checkout = False).delete()
+
+	return redirect('/mycart')
+
+def decreasecart(request,slug):
+	if Cart.objects.filter(slug = slug, user = request.user.username,checkout = False).exists():
+		quantity = Cart.objects.get(slug = slug, user = request.user.username,checkout = False).quantity
+		if quantity>1:
+			quantity = quantity -1
+			Cart.objects.filter(slug = slug, user = request.user.username,checkout = False).update(quantity= quantity)
+	return redirect('/mycart')
+
+
+class CartView(BaseView):
+	def get(self,request):
+		self.views['cart_product'] = Cart.objects.filter(user = request.user.username,checkout = False)
+		return render(request,'shop-shopping-cart.html',self.views)
+		
+#------------------------------------API------------------------------------------------------------------------------------------
+from rest_framework import serializers, viewsets
+from.serializers import *
+from rest_framework import generics
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import OrderingFilter,SearchFilter
+
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+class ProductFilterViewSet(generics.ListAPIView):
+	queryset = Product.objects.all()
+	serializer_class = ProductSerializer
+
+	filter_backends = [DjangoFilterBackend,OrderingFilter,SearchFilter]
+	filter_fields = ['id','name','price','labels','category','subcategory']
+	ordering_fields = ['price','id','name']
+	search_fields = ['name','description']

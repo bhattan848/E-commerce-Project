@@ -10,5 +10,7 @@ router.register(r'products/', ProductViewSet)
 urlpatterns = [
     path('', include(router.urls)),
    # path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
-    path('product_filter/',ProductFilterViewSet.as_view(),name='Product_filter')
+    path('product_filter/',ProductFilterViewSet.as_view(),name='Product_filter'),
+    path('product_crud/<int:pk>',ProductCRUDFilterViewSet.as_view(),name='Product_crud'),
+
 ]
